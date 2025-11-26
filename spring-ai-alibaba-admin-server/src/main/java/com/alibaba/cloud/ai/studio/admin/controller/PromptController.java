@@ -10,7 +10,9 @@ import com.alibaba.cloud.ai.studio.admin.dto.PromptTemplateDetail;
 import com.alibaba.cloud.ai.studio.admin.dto.PromptVersion;
 import com.alibaba.cloud.ai.studio.admin.dto.PromptVersionDetail;
 import com.alibaba.cloud.ai.studio.admin.dto.request.*;
+import com.alibaba.cloud.ai.studio.admin.dto.response.PromptGenerationResponse;
 import com.alibaba.cloud.ai.studio.admin.exception.StudioException;
+import com.alibaba.cloud.ai.studio.admin.service.PromptGenerationService;
 import com.alibaba.cloud.ai.studio.admin.service.PromptRunService;
 import com.alibaba.cloud.ai.studio.admin.service.PromptService;
 import com.alibaba.cloud.ai.studio.admin.service.PromptTemplateService;
@@ -33,6 +35,7 @@ public class PromptController {
     private final PromptVersionService promptVersionService;
     private final PromptTemplateService promptTemplateService;
     private final PromptRunService promptRunService;
+    private final PromptGenerationService promptGenerationService;
 
     // ==================== Prompt基础管理接口 ====================
 
@@ -182,5 +185,31 @@ public class PromptController {
         log.info("删除会话: {}", sessionId);
         promptRunService.deleteSession(sessionId);
         return Result.success(null);
+    }
+
+    // ==================== 提示词生成接口 ====================
+
+    /**
+     * 生成提示词
+     */
+    @PostMapping("/prompt/generate")
+    public Result<PromptGenerationResponse> generatePrompt(@Validated @RequestBody PromptGenerationRequest request) {
+        log.info("生成提示词请求: {}", request);
+        PromptGenerationResponse response = promptGenerationService.generatePrompt(request);
+        return Result.success(response);
+    }
+
+    /**
+     * 流式生成提示词
+     */
+    @PostMapping(value = "/prompt/generate-stream", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    public Flux<PromptGenerationResponse> generatePromptStream(@Validated @RequestBody PromptGenerationRequest request) {
+        log.info("流式生成提示词请求: {}", request);
+        try {
+            return promptGenerationService.generatePromptStream(request);
+        } catch (Exception e) {
+            log.error("流式生成提示词失败", e);
+            return Flux.error(new RuntimeException("流式生成提示词失败: " + e.getMessage()));
+        }
     }
 }

@@ -18,6 +18,7 @@ import GatherDetail from './pages/evaluation/gather/gatherDetail';
 import EvaluationEvaluator from './pages/evaluation/evaluator';
 import EvaluationEvaluatorDetail from './pages/evaluation/evaluator/evaluator-detail';
 import EvaluationEvaluatorDebug from './pages/evaluation/evaluator/evaluator-debug';
+import PromptGenerationPage from './pages/prompt-generation/prompt-generation';
 import { ModelsContext } from './context/models';
 import PromptAPI from './services';
 
@@ -63,6 +64,7 @@ function App() {
                 <Route path="/evaluation-evaluator" element={<EvaluationEvaluator />} />
                 <Route path="/evaluation-evaluator/:id" element={<EvaluationEvaluatorDetail />} />
                 <Route path="/evaluation-debug" element={<EvaluationEvaluatorDebug />} />
+                <Route path="/prompt-generation" element={<PromptGenerationPage />} />
               </Routes>
             </Layout>
           </div>

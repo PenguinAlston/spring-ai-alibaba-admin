@@ -34,13 +34,16 @@ const getSelectedMenuKey = (pathname) => {
   }
   
   // Prompt 相关页面
-  if (pathname.startsWith('/prompt') || pathname === '/prompts' || pathname === '/playground' || pathname === '/version-history') {
+  if (pathname.startsWith('/prompt') || pathname === '/prompts' || pathname === '/playground' || pathname === '/version-history' || pathname === '/prompt-generation') {
     // 根据具体路径返回对应的菜单项
     if (pathname === '/playground') {
       return '/playground';
     }
     if (pathname === '/version-history') {
       return '/prompts'; // 版本历史页面归属于 Prompts 菜单
+    }
+    if (pathname === '/prompt-generation') {
+      return '/prompt-generation'; // 提示词生成页面
     }
     return '/prompts'; // 默认返回 Prompts 菜单
   }
@@ -77,6 +80,11 @@ const Layout = ({ children }) => {
           key: '/playground',
           label: 'Playground',
           icon: <PlayCircleOutlined />
+        },
+        {
+          key: '/prompt-generation',
+          label: '提示词生成',
+          icon: <BulbOutlined />
         }
       ]
     },
