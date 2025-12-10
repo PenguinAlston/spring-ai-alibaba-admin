@@ -20,8 +20,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class PromptGenerationServiceImpl implements PromptGenerationService {
 
-    @Autowired
-    private ChatClient chatClient;
+    private final ChatClient chatClient;
 
     @Override
     public PromptGenerationResponse generatePrompt(PromptGenerationRequest request) {
@@ -52,7 +51,7 @@ public class PromptGenerationServiceImpl implements PromptGenerationService {
 
             // 调用AI模型生成结果
             String response = chatClient.prompt()
-                    .user(prompt -> prompt.text(systemPrompt).variables(variables))
+                    .user(systemPrompt.formatted(request.getInputPrompt()))
                     .call()
                     .content();
 
@@ -100,7 +99,7 @@ public class PromptGenerationServiceImpl implements PromptGenerationService {
 
                 // 调用AI模型生成结果
                 String response = chatClient.prompt()
-                        .user(prompt -> prompt.text(systemPrompt).variables(variables))
+                        .user(String.format(systemPrompt, request.getInputPrompt()))
                         .call()
                         .content();
 

@@ -251,6 +251,7 @@
         </dependency>
 
 
+
     </dependencies>
 
     <build>
@@ -267,6 +268,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmArguments>-Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8</jvmArguments>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

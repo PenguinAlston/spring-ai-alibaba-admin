@@ -6,7 +6,7 @@ import {
   getOptimizationAdvice,
   applyOptimizationAdvice,
   generateCompletePrompt
-} from '../services/prompt-generation';
+} from '../services/prompt-generation/index.ts';
 
 const PromptGenerator = () => {
   const [description, setDescription] = useState('');

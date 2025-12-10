@@ -210,6 +210,17 @@ declare namespace PromptAPI {
     modelConfig: string;
   }
 
+  interface GeneratePromptParams {
+    description: string;
+    templateType?: string;
+  }
+
+  interface GeneratePromptResult {
+    prompt: string;
+    template?: string;
+    variables?: string[];
+  }
+
   interface GetModelsParams {
     page?: number;
     size?: number;

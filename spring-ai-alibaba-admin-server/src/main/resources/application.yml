@@ -51,8 +51,6 @@ spring:
           capture-input: true
           capture-output: true
 
-
-
   servlet:
     multipart:
       max-file-size: 50MB
@@ -90,6 +88,10 @@ spring:
     content-type: text/html
     template-loader-path: classpath:/templates/
 
+  # 添加编码相关配置
+  messages:
+    encoding: UTF-8
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.alibaba.cloud.ai.studio.admin.entity
@@ -97,9 +99,11 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
 logging:
   level:
     org.springframework.boot.autoconfigure: INFO
     org.springframework.boot.task: INFO
-
+  # 添加日志编码配置
+  charset:
+    console: UTF-8
+    file: UTF-8

@@ -80,6 +80,14 @@ export async function runPrompt(params: PromptAPI.RunPromptParams) {
   });
 }
 
+// 生成提示词
+export async function generatePrompt(params: PromptAPI.GeneratePromptParams) {
+  return request<PromptAPI.GeneratePromptResult>(`${API_PATH}/prompt/generate`, {
+    method: 'POST',
+    data: params,
+  });
+}
+
 // 获取会话详情
 // GET /api/prompt/session/{sessionId}
 export async function getPromptSession(sessionId: string) {
